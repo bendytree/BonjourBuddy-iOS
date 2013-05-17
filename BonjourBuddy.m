@@ -1,9 +1,6 @@
 //
-//  Bonjour.m
-//  Speaky
+//  BonjourBuddy.m
 //
-//  Created by Joshua Wright on 5/14/13.
-//  Copyright (c) 2013 Joshua Wright. All rights reserved.
 //
 
 #import "BonjourBuddy.h"

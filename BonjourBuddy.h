@@ -1,9 +1,10 @@
 //
-//  Bonjour.h
-//  Speaky
+//  BonjourBuddy.h
 //
-//  Created by Joshua Wright on 5/14/13.
-//  Copyright (c) 2013 Joshua Wright. All rights reserved.
+//  Created by Joshua Wright on 5/14/13. http://bendytree.com
+//
+//  Use BonjourBuddy however you want. Use it, change it, sell it, burn it, paint butterflies
+//  on its cheeks... just so long as you know I'm not responsible for any problems.
 //
 
 #import <Foundation/Foundation.h>
