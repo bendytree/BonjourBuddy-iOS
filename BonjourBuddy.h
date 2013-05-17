@@ -14,7 +14,7 @@
  *
  *  Bonjour allows you to find other devices on the same wifi network. If you don't know
  *  what you're doing, it can be tricky to get going. So I made this wrapper to hide all
- *  the details and make it easy.
+ *  the details and make it easy. No dependencies, no frameworks. Uses ARC.
  *
  *      // Can be a singleton, or use alloc/init
  *      BonjourBuddy* bonjour = [BonjourBuddy current];
