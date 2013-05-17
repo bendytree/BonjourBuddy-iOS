@@ -36,6 +36,9 @@
         NSCharacterSet* charactersToRemove = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
         NSString* cleanAppName = [[appName componentsSeparatedByCharactersInSet:charactersToRemove] componentsJoinedByString:@""];
         self.netServiceType = [NSString stringWithFormat:@"_%@._tcp.", cleanAppName];
+        
+        // restart from background
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(start) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
