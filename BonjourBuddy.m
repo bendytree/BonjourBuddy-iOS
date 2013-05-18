@@ -43,6 +43,11 @@
     return self;
 }
 
+- (void) dealloc
+{
+    [self stop];
+}
+
 - (void) start
 {
     NSLog(@"Starting bonjour buddy...");
