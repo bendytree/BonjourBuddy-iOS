@@ -45,6 +45,8 @@
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+     
     [self stop];
 }
 
@@ -52,25 +54,27 @@
 {
     NSLog(@"Starting bonjour buddy...");
     
-    if(announcingService == nil)
+    if(announcingService != nil)
     {
-        // Announce ourself
-        announcingService = [[NSNetService alloc] initWithDomain:self.netServiceDomain
-                                                            type:self.netServiceType
-                                                            name:self.netServiceName
-                                                            port:self.netServicePort];
-        [announcingService setDelegate:self];
-        [announcingService setTXTRecordData:[NSNetService dataFromTXTRecordDictionary:meCached]];
-        [announcingService publish];
-        
-        // Look for friends (who are announcing themself)
+        announcingService.delegate = nil;
+        announcingService = nil;
+    }
+    
+    // Announce ourself
+    announcingService = [[NSNetService alloc] initWithDomain:self.netServiceDomain
+                                                        type:self.netServiceType
+                                                        name:self.netServiceName
+                                                        port:self.netServicePort];
+    [announcingService setDelegate:self];
+    [announcingService setTXTRecordData:[NSNetService dataFromTXTRecordDictionary:meCached]];
+    [announcingService publish];
+    
+    // Look for friends (who are announcing themself)
+    if(listeningService == nil)
+    {
         listeningService = [[NSNetServiceBrowser alloc] init];
         [listeningService setDelegate:self];
         [listeningService searchForServicesOfType:self.netServiceType inDomain:self.netServiceDomain];
-    }
-    else
-    {
-        [announcingService publish];
     }
 }
 
@@ -145,7 +149,7 @@
 }
 
 
-#pragma Publishing
+#pragma Announcing
 
 - (void)netServiceDidPublish:(NSNetService *)ns
 {
