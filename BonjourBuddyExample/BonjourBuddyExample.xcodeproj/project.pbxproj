@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC499EC1174A5EF8007DF7A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC499EC0174A5EF8007DF7A3 /* UIKit.framework */; };
+		BC499EC3174A5EF8007DF7A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC499EC2174A5EF8007DF7A3 /* Foundation.framework */; };
+		BC499EC5174A5EF8007DF7A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC499EC4174A5EF8007DF7A3 /* CoreGraphics.framework */; };
+		BC499ECB174A5EF8007DF7A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC499EC9174A5EF8007DF7A3 /* InfoPlist.strings */; };
+		BC499ECD174A5EF8007DF7A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC499ECC174A5EF8007DF7A3 /* main.m */; };
+		BC499ED1174A5EF8007DF7A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC499ED0174A5EF8007DF7A3 /* AppDelegate.m */; };
+		BC499EE0174A5F27007DF7A3 /* BonjourBuddy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC499EDF174A5F27007DF7A3 /* BonjourBuddy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BC499EBC174A5EF8007DF7A3 /* BonjourBuddyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BonjourBuddyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC499EC0174A5EF8007DF7A3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BC499EC2174A5EF8007DF7A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BC499EC4174A5EF8007DF7A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BC499EC8174A5EF8007DF7A3 /* BonjourBuddyExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BonjourBuddyExample-Info.plist"; sourceTree = "<group>"; };
+		BC499ECA174A5EF8007DF7A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BC499ECC174A5EF8007DF7A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC499ECE174A5EF8007DF7A3 /* BonjourBuddyExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BonjourBuddyExample-Prefix.pch"; sourceTree = "<group>"; };
+		BC499ECF174A5EF8007DF7A3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BC499ED0174A5EF8007DF7A3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BC499EDE174A5F27007DF7A3 /* BonjourBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BonjourBuddy.h; path = ../../BonjourBuddy.h; sourceTree = "<group>"; };
+		BC499EDF174A5F27007DF7A3 /* BonjourBuddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BonjourBuddy.m; path = ../../BonjourBuddy.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC499EB9174A5EF8007DF7A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC499EC1174A5EF8007DF7A3 /* UIKit.framework in Frameworks */,
+				BC499EC3174A5EF8007DF7A3 /* Foundation.framework in Frameworks */,
+				BC499EC5174A5EF8007DF7A3 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC499EB1174A5EF8007DF7A3 = {
+			isa = PBXGroup;
+			children = (
+				BC499EC6174A5EF8007DF7A3 /* BonjourBuddyExample */,
+				BC499EBF174A5EF8007DF7A3 /* Frameworks */,
+				BC499EBD174A5EF8007DF7A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC499EBD174A5EF8007DF7A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC499EBC174A5EF8007DF7A3 /* BonjourBuddyExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC499EBF174A5EF8007DF7A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC499EC0174A5EF8007DF7A3 /* UIKit.framework */,
+				BC499EC2174A5EF8007DF7A3 /* Foundation.framework */,
+				BC499EC4174A5EF8007DF7A3 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC499EC6174A5EF8007DF7A3 /* BonjourBuddyExample */ = {
+			isa = PBXGroup;
+			children = (
+				BC499EDD174A5F0F007DF7A3 /* BonjourBuddy */,
+				BC499ECF174A5EF8007DF7A3 /* AppDelegate.h */,
+				BC499ED0174A5EF8007DF7A3 /* AppDelegate.m */,
+				BC499EC7174A5EF8007DF7A3 /* Supporting Files */,
+			);
+			path = BonjourBuddyExample;
+			sourceTree = "<group>";
+		};
+		BC499EC7174A5EF8007DF7A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC499EC8174A5EF8007DF7A3 /* BonjourBuddyExample-Info.plist */,
+				BC499EC9174A5EF8007DF7A3 /* InfoPlist.strings */,
+				BC499ECC174A5EF8007DF7A3 /* main.m */,
+				BC499ECE174A5EF8007DF7A3 /* BonjourBuddyExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BC499EDD174A5F0F007DF7A3 /* BonjourBuddy */ = {
+			isa = PBXGroup;
+			children = (
+				BC499EDE174A5F27007DF7A3 /* BonjourBuddy.h */,
+				BC499EDF174A5F27007DF7A3 /* BonjourBuddy.m */,
+			);
+			name = BonjourBuddy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC499EBB174A5EF8007DF7A3 /* BonjourBuddyExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC499EDA174A5EF8007DF7A3 /* Build configuration list for PBXNativeTarget "BonjourBuddyExample" */;
+			buildPhases = (
+				BC499EB8174A5EF8007DF7A3 /* Sources */,
+				BC499EB9174A5EF8007DF7A3 /* Frameworks */,
+				BC499EBA174A5EF8007DF7A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BonjourBuddyExample;
+			productName = BonjourBuddyExample;
+			productReference = BC499EBC174A5EF8007DF7A3 /* BonjourBuddyExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC499EB3174A5EF8007DF7A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Joshua Wright";
+			};
+			buildConfigurationList = BC499EB6174A5EF8007DF7A3 /* Build configuration list for PBXProject "BonjourBuddyExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BC499EB1174A5EF8007DF7A3;
+			productRefGroup = BC499EBD174A5EF8007DF7A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC499EBB174A5EF8007DF7A3 /* BonjourBuddyExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC499EBA174A5EF8007DF7A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC499ECB174A5EF8007DF7A3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC499EB8174A5EF8007DF7A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC499ECD174A5EF8007DF7A3 /* main.m in Sources */,
+				BC499ED1174A5EF8007DF7A3 /* AppDelegate.m in Sources */,
+				BC499EE0174A5F27007DF7A3 /* BonjourBuddy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BC499EC9174A5EF8007DF7A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC499ECA174A5EF8007DF7A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC499ED8174A5EF8007DF7A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BC499ED9174A5EF8007DF7A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC499EDB174A5EF8007DF7A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BonjourBuddyExample/BonjourBuddyExample-Prefix.pch";
+				INFOPLIST_FILE = "BonjourBuddyExample/BonjourBuddyExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BC499EDC174A5EF8007DF7A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BonjourBuddyExample/BonjourBuddyExample-Prefix.pch";
+				INFOPLIST_FILE = "BonjourBuddyExample/BonjourBuddyExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC499EB6174A5EF8007DF7A3 /* Build configuration list for PBXProject "BonjourBuddyExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC499ED8174A5EF8007DF7A3 /* Debug */,
+				BC499ED9174A5EF8007DF7A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC499EDA174A5EF8007DF7A3 /* Build configuration list for PBXNativeTarget "BonjourBuddyExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC499EDB174A5EF8007DF7A3 /* Debug */,
+				BC499EDC174A5EF8007DF7A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC499EB3174A5EF8007DF7A3 /* Project object */;
+}
