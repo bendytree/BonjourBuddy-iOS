@@ -143,6 +143,8 @@
             }
         }
         
+        [cleanDic setObject:peerService forKey:@"service"];
+        
         [peers addObject:cleanDic];
     }
     return peers;

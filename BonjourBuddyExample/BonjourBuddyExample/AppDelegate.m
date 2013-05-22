@@ -9,7 +9,11 @@
 #import "AppDelegate.h"
 #import "BonjourBuddy.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    NSNetService* service;
+    NSInputStream* inputStream;
+    NSOutputStream* outputStream;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -21,7 +25,7 @@
     
     BonjourBuddy* bonjour = [BonjourBuddy current];
     bonjour.me = @{ @"name": [[UIDevice currentDevice] name] };
-    bonjour.includeSelfInPeers = YES;
+    bonjour.includeSelfInPeers = NO;
     [bonjour start];
     
     return YES;
