@@ -17,25 +17,43 @@
 
 @synthesize myId, myIdKey, includeSelfInPeers, netServiceType, netServiceDomain, netServicePort, netServiceName;
 
+- (void)setupInit {
+    peerServices = [NSMutableArray array];
+    
+    self.myIdKey = @"__id";
+    self.resolveTimeout = 60;
+    self.netServiceDomain = @"local.";
+    self.includeSelfInPeers = NO;
+    self.myId = [BonjourBuddy generateUUID];
+    self.me = [NSDictionary dictionary];
+    self.netServicePort = 53484;
+    self.netServiceName = @"";
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        peerServices = [NSMutableArray array];
-        
-        self.myIdKey = @"__id";
-        self.resolveTimeout = 60;
-        self.netServiceDomain = @"local.";        
-        self.includeSelfInPeers = NO;
-        self.myId = [BonjourBuddy generateUUID];
-        self.me = [NSDictionary dictionary];
-        self.netServicePort = 53484;
-        self.netServiceName = @"";
+        [self setupInit];
         
         NSString* appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
         NSCharacterSet* charactersToRemove = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
         NSString* cleanAppName = [[appName componentsSeparatedByCharactersInSet:charactersToRemove] componentsJoinedByString:@""];
         self.netServiceType = [NSString stringWithFormat:@"_%@._tcp.", cleanAppName];
+        
+        // restart from background
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(start) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+    return self;
+}
+
+- (id)initWithServiceId:(NSString *)serviceId
+{
+    self = [super init];
+    if (self) {
+        [self setupInit];
+        
+        self.netServiceType = serviceId;
         
         // restart from background
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(start) name:UIApplicationWillEnterForegroundNotification object:nil];

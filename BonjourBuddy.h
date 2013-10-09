@@ -121,5 +121,8 @@
 // - does not return the same instance as `current`
 - (id) init;
 
+// Define your own service is, for ex: _mycustomidentifier._tcp.
+- (id) initWithServiceId:(NSString *)serviceId;
+
 @end
 
