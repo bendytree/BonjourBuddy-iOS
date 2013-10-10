@@ -6,7 +6,10 @@
 #import "BonjourBuddy.h"
 
 
-@implementation BonjourBuddy{
+#define dBonjourBuddyDebug                          NO
+
+
+@implementation BonjourBuddy {
     
     NSNetService* announcingService;
     NSNetServiceBrowser* listeningService;
@@ -17,25 +20,43 @@
 
 @synthesize myId, myIdKey, includeSelfInPeers, netServiceType, netServiceDomain, netServicePort, netServiceName;
 
+- (void)setupInit {
+    peerServices = [NSMutableArray array];
+    
+    self.myIdKey = @"__id";
+    self.resolveTimeout = 60;
+    self.netServiceDomain = @"local.";
+    self.includeSelfInPeers = NO;
+    self.myId = [BonjourBuddy generateUUID];
+    self.me = [NSDictionary dictionary];
+    self.netServicePort = 53484;
+    self.netServiceName = @"";
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        peerServices = [NSMutableArray array];
-        
-        self.myIdKey = @"__id";
-        self.resolveTimeout = 60;
-        self.netServiceDomain = @"local.";        
-        self.includeSelfInPeers = NO;
-        self.myId = [BonjourBuddy generateUUID];
-        self.me = [NSDictionary dictionary];
-        self.netServicePort = 53484;
-        self.netServiceName = @"";
+        [self setupInit];
         
         NSString* appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
         NSCharacterSet* charactersToRemove = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
         NSString* cleanAppName = [[appName componentsSeparatedByCharactersInSet:charactersToRemove] componentsJoinedByString:@""];
         self.netServiceType = [NSString stringWithFormat:@"_%@._tcp.", cleanAppName];
+        
+        // restart from background
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(start) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+    return self;
+}
+
+- (id)initWithServiceId:(NSString *)serviceId
+{
+    self = [super init];
+    if (self) {
+        [self setupInit];
+        
+        self.netServiceType = serviceId;
         
         // restart from background
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(start) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -52,7 +73,7 @@
 
 - (void) start
 {
-    NSLog(@"Starting bonjour buddy...");
+    if (dBonjourBuddyDebug) NSLog(@"Starting bonjour buddy...");
     
     if(announcingService != nil)
     {
@@ -155,12 +176,12 @@
 
 - (void)netServiceDidPublish:(NSNetService *)ns
 {
-    NSLog(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
+    if (dBonjourBuddyDebug) NSLog(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
 }
 
 - (void)netService:(NSNetService *)ns didNotPublish:(NSDictionary *)errorDict
 {
-	NSLog(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
+	if (dBonjourBuddyDebug) NSLog(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
 }
 
 
@@ -168,19 +189,19 @@
 
 - (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
 {
-	NSLog(@"WillSearch");
+	if (dBonjourBuddyDebug) NSLog(@"WillSearch");
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender didNotSearch:(NSDictionary *)errorInfo
 {
-	NSLog(@"DidNotSearch: %@", errorInfo);
+	if (dBonjourBuddyDebug) NSLog(@"DidNotSearch: %@", errorInfo);
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender
            didFindService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-    NSLog(@"netService didFindService: %@", [netService name]);
+    if (dBonjourBuddyDebug) NSLog(@"netService didFindService: %@", [netService name]);
     
     //we must retain netService or it doesn't resolve
     [peerServices addObject:netService];
@@ -194,7 +215,7 @@
          didRemoveService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-	NSLog(@"DidRemoveService: %@", [netService name]);
+	if (dBonjourBuddyDebug) NSLog(@"DidRemoveService: %@", [netService name]);
     
     [netService stopMonitoring];
     
@@ -205,31 +226,31 @@
 
 - (void) netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data
 {
-	NSLog(@"didUpdateTXTRecordData: %@", data);
+	if (dBonjourBuddyDebug) NSLog(@"didUpdateTXTRecordData: %@", data);
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
 
 - (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)sender
 {
-	NSLog(@"DidStopSearch");
+	if (dBonjourBuddyDebug) NSLog(@"DidStopSearch");
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
 {
     [peerServices removeObject:sender];
     
-	NSLog(@"DidNotResolve: %@", errorDict);
+	if (dBonjourBuddyDebug) NSLog(@"DidNotResolve: %@", errorDict);
 }
 
 - (void) netServiceWillResolve:(NSNetService *)sender
 {
-    NSLog(@"willresolve");
+    if (dBonjourBuddyDebug) NSLog(@"willresolve");
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
 {
-	NSLog(@"DidResolve: %@", [sender addresses]);
+	if (dBonjourBuddyDebug) NSLog(@"DidResolve: %@", [sender addresses]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
