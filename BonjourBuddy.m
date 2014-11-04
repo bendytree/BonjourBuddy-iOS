@@ -52,7 +52,7 @@
 
 - (void) start
 {
-    //NSLog(@"(@"Starting bonjour buddy...");
+    NSLog(@"Starting bonjour buddy...");
     
     if(announcingService != nil)
     {
@@ -118,6 +118,8 @@
 
 - (NSArray*) peers
 {
+    //addresses: http://stackoverflow.com/a/4976808/193896
+    
     NSMutableArray* peers = [NSMutableArray array];
     for(NSNetService* peerService in peerServices)
     {
@@ -189,12 +191,12 @@
 
 - (void)netServiceDidPublish:(NSNetService *)ns
 {
-    //NSLog(@"(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
+    NSLog(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
 }
 
 - (void)netService:(NSNetService *)ns didNotPublish:(NSDictionary *)errorDict
 {
-    //NSLog(@"(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
+    NSLog(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
 }
 
 
@@ -202,19 +204,19 @@
 
 - (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
 {
-    //NSLog(@"(@"WillSearch");
+    NSLog(@"WillSearch");
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender didNotSearch:(NSDictionary *)errorInfo
 {
-    //NSLog(@"(@"DidNotSearch: %@", errorInfo);
+    NSLog(@"DidNotSearch: %@", errorInfo);
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender
            didFindService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-    //NSLog(@"(@"netService didFindService: %@", [netService name]);
+    NSLog(@"netService didFindService: %@", [netService name]);
     
     //we must retain netService or it doesn't resolve
     [peerServices addObject:netService];
@@ -228,7 +230,7 @@
          didRemoveService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-    //NSLog(@"(@"DidRemoveService: %@", [netService name]);
+    NSLog(@"DidRemoveService: %@", [netService name]);
     
     [netService stopMonitoring];
     
@@ -239,31 +241,31 @@
 
 - (void) netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data
 {
-    //NSLog(@"(@"didUpdateTXTRecordData: %@", data);
+    NSLog(@"didUpdateTXTRecordData: %@", data);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
 
 - (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)sender
 {
-    //NSLog(@"(@"DidStopSearch");
+    NSLog(@"DidStopSearch");
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
 {
     [peerServices removeObject:sender];
     
-    //NSLog(@"(@"DidNotResolve: %@", errorDict);
+    NSLog(@"DidNotResolve: %@", errorDict);
 }
 
 - (void) netServiceWillResolve:(NSNetService *)sender
 {
-    //NSLog(@"(@"willresolve");
+    NSLog(@"willresolve");
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
 {
-    //NSLog(@"(@"DidResolve: %@", [sender addresses]);
+    NSLog(@"DidResolve: %@", [sender addresses]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
