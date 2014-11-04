@@ -4,7 +4,7 @@
 //
 
 #import "BonjourBuddy.h"
-
+#include <arpa/inet.h>
 
 @implementation BonjourBuddy{
     
@@ -135,6 +135,42 @@
             NSString* val = [NSString stringWithUTF8String:[[txtDic objectForKey:key] bytes]];
             [cleanDic setObject:val forKey:key];
         }
+        
+        //ip addresses: http://stackoverflow.com/a/4976808/193896
+        if ([cleanDic count] > 0)
+        {
+            char addressBuffer[INET6_ADDRSTRLEN];
+            for (NSData *data in [peerService addresses])
+            {
+                memset(addressBuffer, 0, INET6_ADDRSTRLEN);
+                typedef union {
+                    struct sockaddr sa;
+                    struct sockaddr_in ipv4;
+                    struct sockaddr_in6 ipv6;
+                } ip_socket_address;
+                ip_socket_address *socketAddress = (ip_socket_address *)[data bytes];
+                if (socketAddress && (socketAddress->sa.sa_family == AF_INET || socketAddress->sa.sa_family == AF_INET6))
+                {
+                    const char *addressStr = inet_ntop(
+                                                       socketAddress->sa.sa_family,
+                                                       (socketAddress->sa.sa_family == AF_INET ? (void *)&(socketAddress->ipv4.sin_addr) : (void *)&(socketAddress->ipv6.sin6_addr)),
+                                                       addressBuffer,
+                                                       sizeof(addressBuffer));
+                    int port = ntohs(socketAddress->sa.sa_family == AF_INET ? socketAddress->ipv4.sin_port : socketAddress->ipv6.sin6_port);
+                    if (addressStr && port)
+                    {
+                        if (socketAddress->sa.sa_family == AF_INET)
+                        {
+                            [cleanDic setObject:[NSString stringWithFormat:@"%s", addressStr] forKey:BonjourBuddyIPv4];
+                        }
+                        else
+                        {
+                            [cleanDic setObject:[NSString stringWithFormat:@"%s", addressStr] forKey:BonjourBuddyIPv6];
+                        }
+                    }
+                }
+            }
+        }        
         
         NSString* peerId = [cleanDic objectForKey:self.myIdKey];
         if(self.includeSelfInPeers == NO){

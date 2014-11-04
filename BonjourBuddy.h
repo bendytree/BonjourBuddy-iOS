@@ -53,6 +53,8 @@
 // Called when a peer is added, removed, or updates their data
 #define BonjourBuddyPeersChangedNotification @"BonjourBuddyPeersChangedNotification"
 
+#define BonjourBuddyIPv4 @"BonjourBuddyIPv4"
+#define BonjourBuddyIPv6 @"BonjourBuddyIPv6"
 
 @interface BonjourBuddy : NSObject<NSNetServiceDelegate, NSNetServiceBrowserDelegate>
 
@@ -122,4 +124,3 @@
 - (id) init;
 
 @end
-
