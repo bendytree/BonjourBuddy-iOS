@@ -26,8 +26,8 @@
  *      [bonjour start];
  *
  *      // Get notified when the list of peers (or their data) changes
- *      [[NSNotificationCenter defaultCenter] addObserver:self
- *                                               selector:@selector(peersChanged)
+ *      [[NSNotificationCenter defaultCenter] addObserver:self 
+ *                                               selector:@selector(peersChanged) 
  *                                  name:BonjourBuddyPeersChangedNotification object:nil];
  *
  *
