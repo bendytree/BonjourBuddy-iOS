@@ -26,8 +26,8 @@
  *      [bonjour start];
  *
  *      // Get notified when the list of peers (or their data) changes
- *      [[NSNotificationCenter defaultCenter] addObserver:self 
- *                                               selector:@selector(peersChanged) 
+ *      [[NSNotificationCenter defaultCenter] addObserver:self
+ *                                               selector:@selector(peersChanged)
  *                                  name:BonjourBuddyPeersChangedNotification object:nil];
  *
  *
@@ -53,6 +53,8 @@
 // Called when a peer is added, removed, or updates their data
 #define BonjourBuddyPeersChangedNotification @"BonjourBuddyPeersChangedNotification"
 
+#define BonjourBuddyIPv4 @"BonjourBuddyIPv4"
+#define BonjourBuddyIPv6 @"BonjourBuddyIPv6"
 
 @interface BonjourBuddy : NSObject<NSNetServiceDelegate, NSNetServiceBrowserDelegate>
 

@@ -4,7 +4,7 @@
 //
 
 #import "BonjourBuddy.h"
-
+#include <arpa/inet.h>
 
 @implementation BonjourBuddy{
     
@@ -25,7 +25,7 @@
         
         self.myIdKey = @"__id";
         self.resolveTimeout = 60;
-        self.netServiceDomain = @"local.";        
+        self.netServiceDomain = @"local.";
         self.includeSelfInPeers = NO;
         self.myId = [BonjourBuddy generateUUID];
         self.me = [NSDictionary dictionary];
@@ -46,13 +46,13 @@
 - (void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-     
+    
     [self stop];
 }
 
 - (void) start
 {
-    NSLog(@"Starting bonjour buddy...");
+    //NSLog(@"(@"Starting bonjour buddy...");
     
     if(announcingService != nil)
     {
@@ -94,7 +94,7 @@
     
     [peerServices removeAllObjects];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
 
 
@@ -118,8 +118,6 @@
 
 - (NSArray*) peers
 {
-    //addresses: http://stackoverflow.com/a/4976808/193896
-    
     NSMutableArray* peers = [NSMutableArray array];
     for(NSNetService* peerService in peerServices)
     {
@@ -134,6 +132,42 @@
         {
             NSString* val = [NSString stringWithUTF8String:[[txtDic objectForKey:key] bytes]];
             [cleanDic setObject:val forKey:key];
+        }
+        
+        //ip addresses: http://stackoverflow.com/a/4976808/193896
+        if ([cleanDic count] > 0)
+        {
+            char addressBuffer[INET6_ADDRSTRLEN];
+            for (NSData *data in [peerService addresses])
+            {
+                memset(addressBuffer, 0, INET6_ADDRSTRLEN);
+                typedef union {
+                    struct sockaddr sa;
+                    struct sockaddr_in ipv4;
+                    struct sockaddr_in6 ipv6;
+                } ip_socket_address;
+                ip_socket_address *socketAddress = (ip_socket_address *)[data bytes];
+                if (socketAddress && (socketAddress->sa.sa_family == AF_INET || socketAddress->sa.sa_family == AF_INET6))
+                {
+                    const char *addressStr = inet_ntop(
+                                                       socketAddress->sa.sa_family,
+                                                       (socketAddress->sa.sa_family == AF_INET ? (void *)&(socketAddress->ipv4.sin_addr) : (void *)&(socketAddress->ipv6.sin6_addr)),
+                                                       addressBuffer,
+                                                       sizeof(addressBuffer));
+                    int port = ntohs(socketAddress->sa.sa_family == AF_INET ? socketAddress->ipv4.sin_port : socketAddress->ipv6.sin6_port);
+                    if (addressStr && port)
+                    {
+                        if (socketAddress->sa.sa_family == AF_INET)
+                        {
+                            [cleanDic setObject:[NSString stringWithFormat:@"%s", addressStr] forKey:BonjourBuddyIPv4];
+                        }
+                        else
+                        {
+                            [cleanDic setObject:[NSString stringWithFormat:@"%s", addressStr] forKey:BonjourBuddyIPv6];
+                        }
+                    }
+                }
+            }
         }
         
         NSString* peerId = [cleanDic objectForKey:self.myIdKey];
@@ -155,12 +189,12 @@
 
 - (void)netServiceDidPublish:(NSNetService *)ns
 {
-    NSLog(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
+    //NSLog(@"(@"Bonjour Service Published: domain(%@) type(%@) name(%@) port(%i)", [ns domain], [ns type], [ns name], (int)[ns port]);
 }
 
 - (void)netService:(NSNetService *)ns didNotPublish:(NSDictionary *)errorDict
 {
-	NSLog(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
+    //NSLog(@"(@"Failed to Publish Service: domain(%@) type(%@) name(%@) - %@", [ns domain], [ns type], [ns name], errorDict);
 }
 
 
@@ -168,19 +202,19 @@
 
 - (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
 {
-	NSLog(@"WillSearch");
+    //NSLog(@"(@"WillSearch");
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender didNotSearch:(NSDictionary *)errorInfo
 {
-	NSLog(@"DidNotSearch: %@", errorInfo);
+    //NSLog(@"(@"DidNotSearch: %@", errorInfo);
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)sender
            didFindService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-    NSLog(@"netService didFindService: %@", [netService name]);
+    //NSLog(@"(@"netService didFindService: %@", [netService name]);
     
     //we must retain netService or it doesn't resolve
     [peerServices addObject:netService];
@@ -194,42 +228,42 @@
          didRemoveService:(NSNetService *)netService
                moreComing:(BOOL)moreServicesComing
 {
-	NSLog(@"DidRemoveService: %@", [netService name]);
+    //NSLog(@"(@"DidRemoveService: %@", [netService name]);
     
     [netService stopMonitoring];
     
     [peerServices removeObject:netService];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
 
 - (void) netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data
 {
-	NSLog(@"didUpdateTXTRecordData: %@", data);
+    //NSLog(@"(@"didUpdateTXTRecordData: %@", data);
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
 
 - (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)sender
 {
-	NSLog(@"DidStopSearch");
+    //NSLog(@"(@"DidStopSearch");
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
 {
     [peerServices removeObject:sender];
     
-	NSLog(@"DidNotResolve: %@", errorDict);
+    //NSLog(@"(@"DidNotResolve: %@", errorDict);
 }
 
 - (void) netServiceWillResolve:(NSNetService *)sender
 {
-    NSLog(@"willresolve");
+    //NSLog(@"(@"willresolve");
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
 {
-	NSLog(@"DidResolve: %@", [sender addresses]);
+    //NSLog(@"(@"DidResolve: %@", [sender addresses]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BonjourBuddyPeersChangedNotification object:nil];
 }
